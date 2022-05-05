@@ -1,6 +1,6 @@
-import Player from './player';
-import GameSettings from './gameSettings';
-import Square from './square';
+import Player from './player.js';
+import GameSettings from './gameSettings.js';
+import Square from './square.js';
 
 export default class Board {
     constructor(currentPlayer) {
@@ -52,16 +52,18 @@ export default class Board {
     }
 
     isValidMove(row, column) {
-        const newSquare = Square.at(row, column);
-        const piece = this.getPiece(newSquare);
+        let newSquare = Square.at(row, column);
+        let pieceAndPlace= this.getPiece(newSquare);
+        console.log(pieceAndPlace.player.black)
+        console.log(pieceAndPlace);
         if (this.currentPlayer === Player.WHITE) {
-            if (this.isValidSquare(row, column) && piece === undefined || piece.player === "black") {
+            if (isValidSquare(row, column) && pieceAndPlace === undefined || pieceAndPlace.player.black) {
                 return true;
             }
             return false;
         }
         if (this.currentPlayer === Player.BLACK) {
-            if (this.isValidSquare(row, column) && piece === undefined || piece.player === "white") {
+            if (isValidSquare(row, column) && pieceAndPlace === undefined || pieceAndPlace.player.white) {
                 return true;
             }
             return false;
