@@ -9,35 +9,55 @@ export default class Queen extends Piece {
     getAvailableMoves(board) {
         let location = board.findPiece(this)
         let availableMoves = []
+        // Forwards diagonal up
+        for (let i  = 1; i < 8 ; i++) {
+            if (!board.validateAndPush(location.row + i, location.col + i, availableMoves)) {
+                break;
+            }
+        }
+        // Forwards diagonal down
         for (let i  = 1; i < 8; i++) {
-            // Forwards diagonal
-            if (location.row + i < 8 && location.col + i < 8) {
-                availableMoves.push(Square.at(location.row + i, location.col + i));
-            }
-            if (location.row - i >= 0 && location.col - i >= 0) {
-                availableMoves.push(Square.at(location.row - i, location.col - i));
-            }
-            // Backwards diagonal
-            if (location.row + i < 8 && location.col - i >= 0) {
-                availableMoves.push(Square.at(location.row + i, location.col - i));
-            }
-            if (location.row - i >= 0 && location.col + i < 8) {
-                availableMoves.push(Square.at(location.row - i, location.col + i));
+            if (!board.validateAndPush(location.row - i, location.col - i, availableMoves)) {
+                break;
             }
         }
-        //Horisontally
-        for (let i  = location.col + 1; i < 8; i++) {
-            availableMoves.push(Square.at(location.row, i));
+        // Backwards diagonal up
+        for (let i  = 1; i < 8; i++) {
+            if (!board.validateAndPush(location.row + i, location.col - i, availableMoves)) {
+                break;
+            }
         }
-        for (let i  = 0; i < location.col; i++) {
-            availableMoves.push(Square.at(location.row, i));
+        for (let i  = 1; i < 8; i++) {
+            // Backwards diagonal down
+            if (!board.validateAndPush(location.row - i, location.col + i, availableMoves)) {
+                break;
+            }
         }
-        // Vertically
-        for (let j  = location.row + 1; j < 8; j++) {
-            availableMoves.push(Square.at(j, location.col));
+
+        // Horisontally right
+        for (let i = location.col + 1; i < 8; i++) {
+            if (!board.validateAndPush(location.row, i, availableMoves)) {
+                break;
+            }
         }
-        for (let j = 0; j < location.row; j++) {
-            availableMoves.push(Square.at(j, location.col));
+
+        // Horisontally left
+        for (let i = location.col - 1; i >= 0; i--) {
+            if (!board.validateAndPush(location.row, i, availableMoves)) {
+                break;
+            }
+        }
+        // Vertically up
+        for (let i = location.row + 1; i < 8; i++) {
+            if (!board.validateAndPush(i, location.col, availableMoves)) {
+                break;
+            }
+        }
+        // Vertically down
+        for (let i = location.row - 1; i >= 0; i--) {
+            if (!board.validateAndPush(i, location.col, availableMoves)) {
+                break;
+            }
         }
         return availableMoves;
     }
