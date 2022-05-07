@@ -52,18 +52,22 @@ export default class Board {
     }
 
     isValidMove(row, column) {
-        const newSquare = Square.at(row, column);
-        const piece = this.getPiece(newSquare);
-        if (this.currentPlayer === Player.WHITE) {
-            if (this.isValidSquare(row, column) && piece === undefined || piece.player === "black") {
-                return true;
-            }
-            return false;
+        if (this.isValidSquare(row, column)) {
+            let newSquare = Square.at(row, column);
+            let piece = this.getPiece(newSquare);
+            return piece === undefined || piece.player !== this.currentPlayer
         }
-        if (this.currentPlayer === Player.BLACK) {
-            if (this.isValidSquare(row, column) && piece === undefined || piece.player === "white") {
-                return true;
-            }
+    }
+
+    validateAndPush(row, column, availableMoves) {
+        if (this.isValidSquare(row, column)) {
+            let newSquare = Square.at(row, column);
+            let piece = this.getPiece(newSquare);
+            if (piece === undefined || piece.player !== this.currentPlayer) {
+                availableMoves.push(newSquare);
+            }   
+            return piece === undefined;
+        } else {
             return false;
         }
     }

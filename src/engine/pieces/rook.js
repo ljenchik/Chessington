@@ -9,20 +9,34 @@ export default class Rook extends Piece {
     getAvailableMoves(board) {
         let location = board.findPiece(this);
         let availableMoves = [];
-        // Horisontally
-        for (let i  = location.col + 1; i < 8; i++) {
-            availableMoves.push(Square.at(location.row, i));
+        // Horisontally right
+        for (let i = location.col + 1; i < 8; i++) {
+            if (!board.validateAndPush(location.row, i, availableMoves)) {
+                break;
+            }
         }
-        for (let i  = 0; i < location.col; i++) {
-            availableMoves.push(Square.at(location.row, i));
+
+        // Horisontally left
+        for (let i = location.col - 1; i >= 0; i--) {
+            if (!board.validateAndPush(location.row, i, availableMoves)) {
+                break;
+            }
         }
-        // Vertically
-        for (let j  = location.row + 1; j < 8; j++) {
-            availableMoves.push(Square.at(j, location.col));
+        // Vertically up
+        for (let i = location.row + 1; i < 8; i++) {
+            if (!board.validateAndPush(i, location.col, availableMoves)) {
+                break;
+            }
         }
-        for (let j = 0; j < location.row; j++) {
-            availableMoves.push(Square.at(j, location.col));
+        // Vertically down
+        for (let i = location.row - 1; i >= 0; i--) {
+            if (!board.validateAndPush(i, location.col, availableMoves)) {
+                break;
+            }
         }
-        return availableMoves;
+        
+    console.log(availableMoves);
+    return availableMoves;
     }
 }
+      
