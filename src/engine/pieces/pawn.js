@@ -10,31 +10,20 @@ export default class Pawn extends Piece {
     getAvailableMoves(board) {
         let location = board.findPiece(this)
         let availableMoves = []
-
         if (this.player === Player.WHITE) {
             if (location.row === 1) {
-                if (board.isValidMove(location.row + 1, location.col) && board.isValidMove(location.row + 2, location.col)) {
-                    availableMoves.push(Square.at(location.row + 1, location.col));
-                    availableMoves.push(Square.at(location.row + 2, location.col));
-                }
+                board.validateAndPush(location.row + 1, location.col, availableMoves) && board.validateAndPush(location.row + 2, location.col, availableMoves) 
             }
             else {
-                if (board.isValidMove(location.row + 1, location.col)) {
-                    availableMoves.push(Square.at(location.row + 1, location.col));
-                }
+                board.validateAndPush(location.row + 1, location.col, availableMoves)
             }
         }
         else {
             if (location.row === 6) {
-                if (board.isValidMove(location.row - 1, location.col) && board.isValidMove(location.row - 2, location.col)) {
-                    availableMoves.push(Square.at(location.row - 1, location.col));
-                    availableMoves.push(Square.at(location.row - 2, location.col));
-                }
+                board.validateAndPush(location.row - 1, location.col, availableMoves) && board.validateAndPush(location.row - 2, location.col, availableMoves) 
             }
             else {
-                if (board.isValidMove(location.row - 1, location.col)) {
-                    availableMoves.push(Square.at(location.row - 1, location.col));
-                }
+                board.validateAndPush(location.row - 1, location.col, availableMoves)
             }
         }
         return availableMoves;

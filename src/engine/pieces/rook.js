@@ -34,8 +34,6 @@ export default class Rook extends Piece {
                 break;
             }
         }
-        
-    console.log(availableMoves);
     return availableMoves;
     }
 }
