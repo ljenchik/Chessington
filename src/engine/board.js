@@ -1,6 +1,7 @@
 import Player from './player';
 import GameSettings from './gameSettings';
 import Square from './square';
+import King from './pieces/king';
 
 export default class Board {
     constructor(currentPlayer) {
@@ -63,7 +64,7 @@ export default class Board {
         if (this.isValidSquare(row, column)) {
             let newSquare = Square.at(row, column);
             let piece = this.getPiece(newSquare);
-            if (piece === undefined || piece.player !== this.currentPlayer) {
+            if ((piece === undefined || piece.player !== this.currentPlayer) && !King.prototype.isPrototypeOf(piece)) {
                 availableMoves.push(newSquare);
             }   
             return piece === undefined;
