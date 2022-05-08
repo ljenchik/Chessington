@@ -12,19 +12,27 @@ export default class Pawn extends Piece {
         let availableMoves = []
         if (this.player === Player.WHITE) {
             if (location.row === 1) {
-                board.validateAndPush(location.row + 1, location.col, availableMoves) && board.validateAndPush(location.row + 2, location.col, availableMoves) 
+                board.validateAndPush(location.row + 1, location.col, availableMoves) && 
+                board.validateAndPush(location.row + 2, location.col, availableMoves);
             }
             else {
-                board.validateAndPush(location.row + 1, location.col, availableMoves)
+                board.validateAndPush(location.row + 1, location.col, availableMoves);
             }
+            board.pawnDiagonalMove(location.row + 1, location.col + 1, availableMoves);
+            board.pawnDiagonalMove(location.row + 1, location.col - 1, availableMoves);
+
+            
         }
         else {
             if (location.row === 6) {
-                board.validateAndPush(location.row - 1, location.col, availableMoves) && board.validateAndPush(location.row - 2, location.col, availableMoves) 
+                board.validateAndPush(location.row - 1, location.col, availableMoves) && 
+                board.validateAndPush(location.row - 2, location.col, availableMoves); 
             }
             else {
-                board.validateAndPush(location.row - 1, location.col, availableMoves)
+                board.validateAndPush(location.row - 1, location.col, availableMoves);
             }
+            board.pawnDiagonalMove(location.row - 1, location.col + 1, availableMoves);
+            board.pawnDiagonalMove(location.row - 1, location.col - 1, availableMoves);
         }
         return availableMoves;
     }

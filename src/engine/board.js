@@ -72,4 +72,14 @@ export default class Board {
             return false;
         }
     }
+
+    pawnDiagonalMove(row, column, availableMoves) {
+        if (this.isValidSquare(row, column)) {
+            let newSquare = Square.at(row, column);
+            let piece = this.getPiece(newSquare);
+            if (piece !== undefined && piece.player !== this.currentPlayer && !King.prototype.isPrototypeOf(piece)) {
+                availableMoves.push(newSquare);
+            }   
+        }
+    }
 }
